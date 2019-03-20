@@ -39,7 +39,7 @@ public:
     {
         m_idx = nullptr;
     }
-    LMQueryMKN(const index_type* idx, uint64_t ngramsize, bool start_sentence = true,bool caching = true);
+    LMQueryMKN(const index_type* idx, uint64_t ngramsize, bool start_sentence = true,bool caching = false);
     double append_symbol(const value_type& symbol);
     
     template<class t_cache>
