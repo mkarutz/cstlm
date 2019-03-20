@@ -122,20 +122,20 @@ public:
         
         // at the end when the index if functional we create the probability
         // cache for low order m-grams
-        auto probcache_file = col.path + "/tmp/PROBCACHE-MAXM="
-            + std::to_string(t_mgram_cache) + "-MAXC="
-            + std::to_string(t_max_ngram_count) + "-BYTE="
-            + std::to_string(byte_alphabet) + "-"
-            + sdsl::util::class_to_hash(m_static_prob_cache) + ".sdsl";
-        if (!utils::file_exists(probcache_file)) {
-            lm_construct_timer timer("PROB_CACHE");
-            m_static_prob_cache = prob_cache_type(*this);
-            std::ofstream ofs(probcache_file);
-            m_static_prob_cache.serialize(ofs,m_cst);
-        } else {
-            std::ifstream ifs(probcache_file);
-            m_static_prob_cache.load(ifs,m_cst);
-        }
+        // auto probcache_file = col.path + "/tmp/PROBCACHE-MAXM="
+        //     + std::to_string(t_mgram_cache) + "-MAXC="
+        //     + std::to_string(t_max_ngram_count) + "-BYTE="
+        //     + std::to_string(byte_alphabet) + "-"
+        //     + sdsl::util::class_to_hash(m_static_prob_cache) + ".sdsl";
+        // if (!utils::file_exists(probcache_file)) {
+        //     lm_construct_timer timer("PROB_CACHE");
+        //     m_static_prob_cache = prob_cache_type(*this);
+        //     std::ofstream ofs(probcache_file);
+        //     m_static_prob_cache.serialize(ofs,m_cst);
+        // } else {
+        //     std::ifstream ifs(probcache_file);
+        //     m_static_prob_cache.load(ifs,m_cst);
+        // }
     }
 
     size_type serialize(std::ostream& out, sdsl::structure_tree_node* v = NULL,
