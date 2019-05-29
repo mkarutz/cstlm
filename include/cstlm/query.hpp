@@ -39,9 +39,9 @@ public:
     {
         m_idx = nullptr;
     }
-    LMQueryMKN(const index_type* idx, uint64_t ngramsize, bool start_sentence = true,bool caching = false);
+    LMQueryMKN(const index_type* idx, uint64_t ngramsize, bool start_sentence = true,bool caching = true);
     double append_symbol(const value_type& symbol);
-    
+
     template<class t_cache>
     double append_symbol_fill_cache(const value_type& symbol,t_cache& cache);
 
@@ -58,7 +58,7 @@ public:
     {
         return m_pattern.size() == 1 && m_pattern.back() == PAT_START_SYM;
     }
-    
+
 
 public:
     const index_type* m_idx;
@@ -121,7 +121,7 @@ double LMQueryMKN<t_idx>::append_symbol(const value_type& symbol)
         if( m_ngramsize == lookup_size ) {
             lookup_size--;
         }
-        
+
         for (size_t j = std::min(lookup_size, cache_size); j >= 1 && ok; --j) {
             std::vector<value_type> pattern(pattern_end - j, pattern_end);
             if (j > 1 && pattern.front() == UNKNOWN_SYM)
@@ -133,7 +133,7 @@ double LMQueryMKN<t_idx>::append_symbol(const value_type& symbol)
                 node_incl = node_incl_vec.back();
                 p = found->second.prob;
                 i = j+1;
-                
+
                 auto old_node_excl_it = node_excl_it;
                 for (size_t k = 2; k <= j; ++k) {
                     assert(node_excl_it != m_last_nodes_incl.end());
@@ -217,7 +217,7 @@ double LMQueryMKN<t_idx>::append_symbol(const value_type& symbol)
         // n3p is dodgy
         double gamma = D1 * n1 + D2 * n2 + D3p * n3p;
         p = (c + gamma * p) / d;
-        
+
     }
 
     m_last_nodes_incl = node_incl_vec;
@@ -330,7 +330,7 @@ double LMQueryMKN<t_idx>::append_symbol_fill_cache(const value_type& symbol,t_ca
     m_last_nodes_incl = node_incl_vec;
     while (m_pattern.size() > m_last_nodes_incl.size())
         m_pattern.pop_front();
-        
+
     return p;
 }
 
