@@ -50,6 +50,14 @@ public:
     const prob_cache_type& cache = m_static_prob_cache;
 public:
     index_succinct() = default;
+    index_succinct(const index_succinct<t_cst, t_max_ngram_count>& idx)
+    {
+      m_vocab = idx.m_vocab;
+      m_cst = idx.m_cst;
+      m_discounts = idx.m_discounts;
+      m_precomputed = idx.m_precomputed;
+      m_static_prob_cache = idx.m_static_prob_cache;
+    }
     index_succinct(index_succinct<t_cst, t_max_ngram_count>&& idx)
     {
         m_vocab = std::move(idx.m_vocab);
